@@ -35,4 +35,50 @@ class Customer:
         for order in coffee.orders():
             customer_spending[order.customer] = customer_spending.get(order.customer, 0) + order.price
         return max(customer_spending, key=customer_spending.get)
+    
+class Order:
+    def __init__(self, customer, coffee, price):
+        self.customer = customer
+        self.coffee = coffee
+        self.price = price
+
+class Coffee:
+    def __init__(self, name):
+        self.name = name
+        self._orders = []
+
+    def add_order(self, order):
+        self._orders.append(order)
+
+    def orders(self):
+        return self._orders
+    
+
+    # Create some coffee types
+mocha = Coffee("Mocha")
+latte = Coffee("Latte")
+
+# Create customers
+charlie = Customer("Charlie")
+bob = Customer("Bob")
+
+# Customers place orders
+charlie.create_order(mocha, 4.5)
+charlie.create_order(latte, 4.0)
+bob.create_order(mocha, 3.0)
+bob.create_order(mocha, 3.0)
+
+# Check Charlie's orders
+print(f"Charlie's orders: {[order.coffee.name for order in charlie.orders()]}")
+# Output: Charlie's orders: ['Mocha', 'Latte']
+
+# Check unique coffees Charlie has ordered
+print(f"Charlie's unique coffees: {charlie.coffees()}")
+# Output: Charlie's unique coffees: ['Mocha', 'Latte']
+
+# Determine who is the most aficionado of Mocha
+most_aficionado = Customer.most_aficionado(mocha)
+print(f"The most aficionado of Mocha is: {most_aficionado.name}")
+
+
 

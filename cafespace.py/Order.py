@@ -1,24 +1,31 @@
+class Customer:
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+    def __str__(self):
+        return f"Customer(name={self.name}, email={self.email})"
+
+class Coffee:
+    def __init__(self, blend, size):
+        self.blend = blend
+        self.size = size
+
+    def __str__(self):
+        return f"Coffee(blend={self.blend}, size={self.size})"
+
 class Order:
     def __init__(self, customer, coffee, price):
-        if not isinstance(customer, Customer):
-            raise ValueError("Order must have a Customer instance.")
-        if not isinstance(coffee, Coffee):
-            raise ValueError("Order must have a Coffee instance.")
-        if not isinstance(price, (float, int)) or not (1.0 <= price <= 10.0):
-            raise ValueError("Price must be a float between 1.0 and 10.0.")
-        
-        self._customer = customer
-        self._coffee = coffee
-        self._price = float(price)
+        self.customer = customer
+        self.coffee = coffee
+        self.price = float(price)
 
-    @property
-    def price(self):
-        return self._price
+    def __str__(self):
+        return f"Order(customer={self.customer}, coffee={self.coffee}, price={self.price})"
 
-    @property
-    def customer(self):
-        return self._customer
+# Example usage:
+customer = Customer(name="Alice Smith", email="alice.smith@example.com")
+coffee = Coffee(blend="Espresso", size="Medium")
+order = Order(customer=customer, coffee=coffee, price=4.5)
 
-    @property
-    def coffee(self):
-        return self._coffee
+print(order)

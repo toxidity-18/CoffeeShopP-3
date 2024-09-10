@@ -28,3 +28,47 @@ class Coffee:
         return total_price / len(self._orders)
 
 
+class Order:
+    def __init__(self, customer, price):
+        if not isinstance(customer, str) or len(customer) < 1:
+            raise ValueError("Customer name must be a non-empty string.")
+        if not isinstance(price, (int, float)) or price < 0:
+            raise ValueError("Price must be a non-negative number.")
+        
+        self.customer = customer
+        self.price = price
+
+
+def test_coffee_class():
+    # Create a Coffee instance
+    coffee = Coffee("Espresso")
+
+    # Create some Order instances
+    order1 = Order("Alice", 3.50)
+    order2 = Order("Bob", 4.00)
+    order3 = Order("Alice", 3.75)
+
+    # Add orders to the Coffee instance
+    coffee.add_order(order1)
+    coffee.add_order(order2)
+    coffee.add_order(order3)
+
+    # Test the number of orders
+    assert coffee.num_orders() == 3, "Expected 3 orders"
+
+    # Test the customers list (unique customers)
+    assert set(coffee.customers()) == {"Alice", "Bob"}, "Expected customers are Alice and Bob"
+
+    # Test the average price calculation
+    assert abs(coffee.average_price() - 3.75) < 1e-9, "Expected average price is 3.75"
+
+    # Test the Coffee name
+    assert coffee.name == "Espresso", "Expected coffee name is Espresso"
+
+    # Print results
+    print("All tests passed!")
+
+# Run the test function
+test_coffee_class()
+
+
